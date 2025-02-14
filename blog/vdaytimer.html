@@ -26,7 +26,7 @@
       background-color: transparent;
       margin: 20px 0;
       transition: width 1s linear;
-      transform: rotate(16deg) translateX(1020px) translateY(-280px);
+      transform: rotate(16deg) translateX(1030px) translateY(0px) scaleX(-1);
       transform-origin: left;
       position: relative;
     }
@@ -54,8 +54,8 @@
     <h2>Countdown to Bebu S4 OVA</h2>
     <div id="timerDisplay">0:00</div>
     <div id="timerLine">
-      <img id="leftImage" src="../images/left_photo.jpg" alt="Left Photo" style="width: 40px; height: auto;" />
-      <img id="rightImage" src="../images/right_photo.jpg" alt="Right Photo" style="width: 40px; height: auto;" />
+      <img id="leftImage" src="../images/right_photo.jpg" alt="Left Photo" style="width: 40px; height: auto;" />
+      <img id="rightImage" src="../images/left_photo.jpg" alt="Right Photo" style="width: 40px; height: auto;" />
     </div>
     <img id="endImage" src="../images/end_photo.jpg" alt="End Photo" />
   </main>
@@ -88,9 +88,10 @@
 
             document.getElementById('timerDisplay').textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-            let percentage = (distance / totalTime) * 50;
+            let percentage = (distance / totalTime) * 90;
             document.getElementById('timerLine').style.width = percentage + '%';
-            document.getElementById('leftImage').style.left = percentage + '%';
+            document.getElementById('timerLine').style.left = (100 - percentage) + '%';
+            document.getElementById('leftImage').style.left = (100 - percentage) + '%';
         }, 1000);
     }
 
