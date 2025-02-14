@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer - My Website</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body {
+      background-image: url('../images/world_map.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh; /* Ensure it covers the whole height of the page */
+      margin: 0; /* Remove default margin */
+      color: green; /* Ensure text is readable */
+    }
+    #timerDisplay {
+      font-size: 4em; /* Increase the font size */
+      text-align: left;
+      margin: 20px 0;
+    }
+    #timerLine {
+      height: 10px;
+      width: 100%; /* Start with 100% width */
+      background-color: transparent;
+      margin: 20px 0;
+      transition: width 1s linear;
+      transform: rotate(16deg) translateX(1020px) translateY(-280px);
+      transform-origin: left;
+      position: relative;
+    }
+    #leftImage {
+      position: absolute;
+      top: -30px; /* Adjust as needed */
+      left: 0;
+      transition: left 1s linear;
+    }
+    #rightImage {
+      position: absolute;
+      top: -30px; /* Adjust as needed */
+      right: 0;
+    }
+    #endImage {
+      display: none; /* Hide the image initially */
+      width: 100%;
+      height: auto;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h2>Countdown to Bebu S4 OVA</h2>
+    <div id="timerDisplay">0:00</div>
+    <div id="timerLine">
+      <img id="leftImage" src="../images/left_photo.jpg" alt="Left Photo" style="width: 40px; height: auto;" />
+      <img id="rightImage" src="../images/right_photo.jpg" alt="Right Photo" style="width: 40px; height: auto;" />
+    </div>
+    <img id="endImage" src="../images/end_photo.jpg" alt="End Photo" />
+  </main>
+  <script>
+    let countdownTimer;
+    let startDate = new Date('February 13, 2025 22:00:00 GMT+0800').getTime();
+    let endDate = new Date('February 14, 2025 22:10:00 GMT+0800').getTime();
+    let totalTime = endDate - startDate;
+
+    function startCountdown() {
+        countdownTimer = setInterval(() => {
+            let now = new Date().getTime();
+            let distance = endDate - now;
+
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById('timerDisplay').textContent = "Happy Valentines Day, my meu!";
+                document.getElementById('timerLine').style.width = '0%';
+                document.getElementById('leftImage').style.left = '0%';
+                document.getElementById('endImage').style.display = 'block'; // Show the end image
+                document.getElementById('endImage').style.width = '50%'; // Make the image smaller
+                document.getElementById('endImage').style.marginTop = '10px'; // Adjust the position
+                return;
+            }
+
+            let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('timerDisplay').textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            let percentage = (distance / totalTime) * 50;
+            document.getElementById('timerLine').style.width = percentage + '%';
+            document.getElementById('leftImage').style.left = percentage + '%';
+        }, 1000);
+    }
+
+    // Start countdown automatically when the page loads
+    startCountdown();
+  </script>
+</body>
+</html>
